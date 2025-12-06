@@ -1,5 +1,5 @@
-import React, { Component } from 'react' // Update import
-import { useDispatch, useSelector } from 'react-redux'
+import React, { Component } from 'react'
+import { useDispatch } from 'react-redux'
 import Post from '../components/Post.jsx'
 import PostForm from '../components/PostForm.jsx'
 import { setUsers } from '../store/index.js'
@@ -10,7 +10,7 @@ function FeedContent() {
   const posts = usePosts()
   const dispatch = useDispatch()
 
-  React.useEffect(() => { // Use React.useEffect
+  React.useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users?_limit=5')
       .then((res) => res.json())
       .then((data) => dispatch(setUsers(data)))

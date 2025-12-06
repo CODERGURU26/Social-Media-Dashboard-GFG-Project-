@@ -1,4 +1,4 @@
-import React, { useState } from 'react' // Update import
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addPost } from '../store/index.js'
 import { useAuth } from '../contexts/AuthContext.jsx'
@@ -14,7 +14,16 @@ export default function PostForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (isValid) {
-      dispatch(addPost({ id: Date.now(), title, body, userId: user.username }))
+      dispatch(
+        addPost({
+          id: Date.now(),
+          title,
+          body,
+          userId: user.username, // adjust if your AuthContext uses user.id
+          likes: 0,
+          comments: []
+        })
+      )
       setTitle('')
       setBody('')
     }
@@ -35,7 +44,11 @@ export default function PostForm() {
         placeholder="What's on your mind?"
         className="border p-2 w-full text-black"
       />
-      <button type="submit" disabled={!isValid} className="bg-blue-500 text-white p-2 disabled:opacity-50">
+      <button
+        type="submit"
+        disabled={!isValid}
+        className="bg-blue-500 text-white p-2 disabled:opacity-50"
+      >
         Post
       </button>
     </form>

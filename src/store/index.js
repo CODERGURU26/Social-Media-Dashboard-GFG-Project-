@@ -3,7 +3,10 @@ import { createStore, combineReducers } from 'redux'
 // Actions
 export const addPost = (post) => ({ type: 'ADD_POST', payload: post })
 export const likePost = (postId) => ({ type: 'LIKE_POST', payload: postId })
-export const addComment = (postId, comment) => ({ type: 'ADD_COMMENT', payload: { postId, comment } })
+export const addComment = (postId, comment) => ({
+  type: 'ADD_COMMENT',
+  payload: { postId, comment }
+})
 export const followUser = (userId) => ({ type: 'FOLLOW_USER', payload: userId })
 export const setPosts = (posts) => ({ type: 'SET_POSTS', payload: posts })
 export const setUsers = (users) => ({ type: 'SET_USERS', payload: users })
@@ -17,12 +20,17 @@ const postsReducer = (state = [], action) => {
       return [action.payload, ...state]
     case 'LIKE_POST':
       return state.map((post) =>
-        post.id === action.payload ? { ...post, likes: (post.likes || 0) + 1 } : post
+        post.id === action.payload
+          ? { ...post, likes: (post.likes || 0) + 1 }
+          : post
       )
     case 'ADD_COMMENT':
       return state.map((post) =>
         post.id === action.payload.postId
-          ? { ...post, comments: [...(post.comments || []), action.payload.comment] }
+          ? {
+              ...post,
+              comments: [...(post.comments || []), action.payload.comment]
+            }
           : post
       )
     default:

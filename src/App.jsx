@@ -7,7 +7,7 @@ import AuthProvider, { useAuth } from './contexts/AuthContext.jsx'
 import Navbar from './components/Navbar.jsx'
 import Feed from './pages/Feed.jsx'
 import Profile from './pages/Profile.jsx'
-import Settings from './pages/Settings.jsx'
+import Settings from './pages/Setting.jsx'
 import Login from './pages/Login.jsx'
 
 // ProtectedRoute component for authentication
