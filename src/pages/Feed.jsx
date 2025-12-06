@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { useDispatch } from 'react-redux'
 import Post from '../components/Post.jsx'
 import PostForm from '../components/PostForm.jsx'
-import { setUsers } from '../store/index.js'
+import { setPosts, setUsers } from '../store/index.js'
 import { usePosts } from '../hooks/usePosts.js'
 
 // Functional wrapper for hooks
@@ -14,6 +14,12 @@ function FeedContent() {
     fetch('https://jsonplaceholder.typicode.com/users?_limit=5')
       .then((res) => res.json())
       .then((data) => dispatch(setUsers(data)))
+
+      fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
+    .then((res) => res.json())
+    .then((data) =>
+      dispatch(setPosts(data.map((p) => ({ ...p, likes: 0, comments: [] }))))
+    )
 
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {

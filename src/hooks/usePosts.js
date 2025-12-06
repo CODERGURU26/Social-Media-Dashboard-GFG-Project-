@@ -1,16 +1,6 @@
-import React, { useEffect } from 'react' // Add import
-import { useDispatch, useSelector } from 'react-redux'
-import { setPosts } from '../store/index.js'
+import { useSelector } from 'react-redux'
 
+// Keep this hook simple: just read posts from Redux
 export const usePosts = () => {
-  const dispatch = useDispatch()
-  const posts = useSelector((state) => state.posts)
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
-      .then((res) => res.json())
-      .then((data) => dispatch(setPosts(data.map((p) => ({ ...p, likes: 0, comments: [] })))))
-  }, [dispatch])
-
-  return posts
+  return useSelector((state) => state.posts)
 }
